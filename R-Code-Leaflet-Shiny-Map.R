@@ -22,7 +22,7 @@ library(shinyjs)
 #for parking restrictions on various streets
 streets <- readOGR("Parking Streets.shp",
                   layer = "Parking Streets")
-#Project the shapeifle into coordinates that Leaflet can use (WGS84)
+#Project the shapefile into coordinates that Leaflet can use (WGS84)
 streets <- spTransform(streets, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 plot(streets)
@@ -100,7 +100,7 @@ ui <- fluidPage(
   leafletOutput("map", height="600px")
 )
 
-#Creates and launches the Shiny App
+#Creates and launches the Shiny app
 shinyApp(ui = ui, server = server)
 
 
