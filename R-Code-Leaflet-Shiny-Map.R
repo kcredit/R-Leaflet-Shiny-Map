@@ -92,7 +92,7 @@ ui <- fluidPage(
   
   # Tell shiny we will use some Javascript
   useShinyjs(),
-  extendShinyjs(text = jsCode),
+  extendShinyjs(text = jsCode, functions = c("winprint")),
   
   # One button and one map
   br(),
