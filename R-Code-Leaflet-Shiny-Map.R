@@ -1,4 +1,4 @@
-#install.packages("rgdal")
+#install.packages("sf")
 #install.packages("RColorBrewer")
 #install.packages("leaflet", dep = T)
 #install.packages("htmlwidgets")
@@ -8,7 +8,7 @@
 #install.packages("shinyjs")
 library(shiny)
 library(rsconnect)
-library(rgdal)
+library(sf)
 library(leaflet)
 library(htmlwidgets)
 library(RColorBrewer)
@@ -20,10 +20,12 @@ library(shinyjs)
 
 #Read in shapefile - in this case, we are using a polyline shapefile
 #for parking restrictions on various streets
-streets <- readOGR("Parking Streets.shp",
-                  layer = "Parking Streets")
+streets <- st_read("Parking Streets.shp")
+
+class(streets) # if it returns sf "data.frame" you should use st_transform 
+
 #Project the shapefile into coordinates that Leaflet can use (WGS84)
-streets <- spTransform(streets, CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
+streets <- st_transform(streets, st_crs("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 plot(streets)
 streets$Level <- as.numeric(streets$Level)
