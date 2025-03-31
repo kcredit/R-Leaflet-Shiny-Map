@@ -28,10 +28,11 @@ class(streets) # if it returns sf "data.frame" you should use st_transform
 streets <- st_transform(streets, st_crs("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"))
 
 plot(streets)
+
 streets$Level <- as.numeric(streets$Level)
 
 # Create a continuous palette function for visualizing parking restrictions
-#(green = fewer restrctions,  red = more)
+#(green = fewer restrictions,  red = more)
 pal <- colorNumeric(
   palette = c("green", "yellow", "red"),
   domain = streets$Level)
